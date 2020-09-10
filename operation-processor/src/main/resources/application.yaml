@@ -1,0 +1,30 @@
+server:
+  port: ${PORT:8082}
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8088/eureka}
+  instance:
+    leaseRenewalIntervalInSeconds: 5
+    preferIpAddress: true
+
+spring:
+  application:
+    name: operation-processor
+  profiles:
+    active: ${PROFILE:sub}
+  kafka:
+    template:
+      default-topic: ${INPUT_TOPIC_NAME:sub-topic}
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      bootstrap-servers: ${KAFKA_ADDRESS:localhost:9092}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+app:
+  input-topic:
+    name: ${INPUT_TOPIC_NAME:sub-topic}
+  output-topic:
+    name: ${OUTPUT_TOPIC_NAME:results-topic}
