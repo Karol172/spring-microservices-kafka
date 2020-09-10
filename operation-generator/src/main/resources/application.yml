@@ -15,7 +15,7 @@ spring:
   application:
     name: operation-generator
   profiles:
-    active: ${PROFILE:sub}
+    active: ${PROFILE:add}
   kafka:
     producer:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
@@ -23,6 +23,6 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
 app:
   topic:
-    name: ${TOPIC_NAME:sub-topic}
+    name: ${PROFILE:add}-topic
   event:
     interval: ${INTERVAL:1000}
