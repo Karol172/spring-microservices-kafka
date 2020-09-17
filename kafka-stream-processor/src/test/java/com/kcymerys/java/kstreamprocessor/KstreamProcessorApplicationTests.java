@@ -1,11 +1,12 @@
-package com.kcymerys.java.operationgenerator;
+package com.kcymerys.java.kstreamprocessor;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class OperationGeneratorApplicationTests {
+class KstreamProcessorApplicationTests {
 
+    //@Test
     void contextLoads() {
     }
 

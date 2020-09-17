@@ -1,0 +1,22 @@
+spring.cloud.stream:
+  kafka.binder:
+    brokers: ${KAFKA_ADDRESS:localhost}
+    defaultBrokerPort: 9092
+  bindings:
+    input:
+      destination: results-topic
+      content-type: application/json
+      group: input-group-1
+      useNativeDecoding: true
+      useNativeEncoding: true
+spring:
+  kafka:
+    consumer:
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: kafka-stream
+      properties:
+        spring.json.trusted.packages: "*"
+  cloud:
+    stream:
+      bindings:
+spring.json.trusted.packages: "*"

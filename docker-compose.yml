@@ -18,7 +18,7 @@ services:
     networks:
       - kafkanetwork
     environment:
-      KAFKA_CREATE_TOPICS: "add-topic:1:1,sub-topic:1:1,mul-topic:1:1,div-topic:1:1,results-topic:1:1"
+      KAFKA_CREATE_TOPICS: "add-topic:1:1,sub-topic:1:1,mul-topic:1:1,div-topic:1:1,results-topic:1:1,final-topic:1:1"
       KAFKA_ZOOKEEPER_CONNECT: cluster_zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://127.0.0.1:9092
     links:
@@ -178,6 +178,22 @@ services:
     depends_on:
       - discovery
       - kafka
+    links:
+      - "discovery:ds"
+      - "kafka:cluster_kafka"
+    restart: unless-stopped
+    
+  kafka-stream-processor:
+    build: ./kafka-stream-processor
+    ports:
+      - "8100:8080"
+    networks:
+      - kafkanetwork
+    depends_on:
+      - discovery
+      - kafka
+    environment:
+      - KAFKA_ADDRESS=kafka:9092
     links:
       - "discovery:ds"
       - "kafka:cluster_kafka"
